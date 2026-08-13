@@ -34,6 +34,12 @@ command should print something, the expected result is described — check it be
 
    Notepad asks to create the file — click **Yes**, paste the key text, **Save**, and close Notepad.
 
+   **Formatting:** the file's entire contents must be exactly the key block — starting with the
+   `-----BEGIN OPENSSH PRIVATE KEY-----` line and ending with the `-----END OPENSSH PRIVATE KEY-----`
+   line, both included, with nothing before or after. Do **not** include the `Hostname:`,
+   `Username:`, or `Port:` lines Site Tools shows alongside the key — those belong in the config
+   file in the next step — and no quote marks around anything.
+
 5. Create an SSH shortcut so every later command can just say `siteground`:
 
    ```powershell
