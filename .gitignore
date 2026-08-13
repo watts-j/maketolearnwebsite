@@ -1,0 +1,50 @@
+# --- Secrets: never commit -------------------------------------------------
+wp-config.php
+.env
+*.pem
+*.ppk
+*.key
+id_rsa*
+id_ed25519*
+
+# --- Database dumps: contain user PII and password hashes ------------------
+*.sql
+*.sql.gz
+*.sql.zip
+
+# --- WordPress core: reinstallable, not versioned here ---------------------
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/xmlrpc.php
+/license.txt
+/readme.html
+
+# --- Media and generated files: belong in backups, not git -----------------
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+wp-content/languages/
+wp-content/cache/
+wp-content/et-cache/
+wp-content/litespeed/
+wp-content/w3tc-config/
+wp-content/wflogs/
+wp-content/backup*/
+wp-content/backups*/
+wp-content/ai1wm-backups/
+wp-content/updraft/
+
+# --- Archives --------------------------------------------------------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# --- OS / editor / tooling noise -------------------------------------------
+.DS_Store
+Thumbs.db
+node_modules/
+vendor/
+*.log
