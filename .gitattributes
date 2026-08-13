@@ -1,0 +1,6 @@
+# Normalize line endings so files behave the same on Windows, Mac, and the server.
+* text=auto
+
+# Shell scripts must keep LF endings — they get uploaded to and run on the
+# SiteGround server, and bash chokes on Windows-style CRLF endings.
+*.sh text eol=lf

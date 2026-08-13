@@ -28,6 +28,10 @@ your SSH home directory). Confirm with `ls` once you're connected.
 
 ## Step 2 — Pull the site into this repo
 
+> **On Windows?** Follow [`docs/WINDOWS-WALKTHROUGH.md`](docs/WINDOWS-WALKTHROUGH.md) instead — the
+> script below needs `rsync`, which Windows doesn't ship; the walkthrough uses built-in
+> PowerShell `ssh`/`scp` and covers every step in novice detail.
+
 Clone this repo on your machine, open `scripts/pull-site.sh`, and fill in the three variables at the
 top (username, hostname, and the WordPress root from Step 1). Then, from the repo root:
 
