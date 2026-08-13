@@ -74,6 +74,15 @@ command should print something, the expected result is described — check it be
      rename it with `ren $HOME\.ssh\config.txt config` and retry. If there's no config file at
      all, redo step 5. You can always test the connection without the shortcut using the full
      command: `ssh -i $HOME\.ssh\siteground.key -p 18765 YOUR-USERNAME@YOUR-HOSTNAME`
+   - `no such identity: ... siteground.key: No such file or directory` — the key file also got a
+     hidden `.txt` extension: `ren $HOME\.ssh\siteground.key.txt siteground.key`. (Choosing
+     "All files" as Notepad's *Save as type* prevents this in the future.)
+   - `Load key ...: invalid format` — the file's contents aren't a clean key. Check the first and
+     last lines with `(Get-Content $HOME\.ssh\siteground.key)[0]` and the same with `[-1]` — they
+     must be exactly the `-----BEGIN/END OPENSSH PRIVATE KEY-----` lines. If extra text shows up,
+     re-copy the key from Site Tools and rebuild the file (step 4). If the lines are right, clear
+     Notepad's hidden encoding marker:
+     `(Get-Content $HOME\.ssh\siteground.key) | Set-Content $HOME\.ssh\siteground.key -Encoding Ascii`
    - `Permission denied (publickey)` — the key file is wrong/incomplete: redo step 4, making sure
      the BEGIN and END lines are included, and that the username in `config` is exactly right.
    - `WARNING: UNPROTECTED PRIVATE KEY FILE` / `Bad permissions` — lock the file down, then retry:
