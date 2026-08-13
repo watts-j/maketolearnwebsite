@@ -69,6 +69,11 @@ command should print something, the expected result is described — check it be
      come back to PowerShell.
 
    **If it fails:**
+   - `Could not resolve hostname siteground` — ssh isn't finding the config file. Run
+     `dir $HOME\.ssh`: if the file shows up as `config.txt`, Notepad added a hidden extension —
+     rename it with `ren $HOME\.ssh\config.txt config` and retry. If there's no config file at
+     all, redo step 5. You can always test the connection without the shortcut using the full
+     command: `ssh -i $HOME\.ssh\siteground.key -p 18765 YOUR-USERNAME@YOUR-HOSTNAME`
    - `Permission denied (publickey)` — the key file is wrong/incomplete: redo step 4, making sure
      the BEGIN and END lines are included, and that the username in `config` is exactly right.
    - `WARNING: UNPROTECTED PRIVATE KEY FILE` / `Bad permissions` — lock the file down, then retry:
