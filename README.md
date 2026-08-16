@@ -8,6 +8,15 @@ everything as the first step toward modernizing the theme.
 The site's files only exist on SiteGround right now, so the flow is: **enable SSH → pull → commit →
 push → inventory**. Everything below is written for that flow, with a no-SSH fallback at the end.
 
+## Status — 2026-08-16
+
+- SSH access works; `wp-content/themes/` and `docs/site-inventory/` are imported from production.
+- **Inventories are written**: [`docs/THEME-INVENTORY.md`](docs/THEME-INVENTORY.md) and
+  [`docs/PLUGIN-INVENTORY.md`](docs/PLUGIN-INVENTORY.md) — environment facts, architecture,
+  defect list, and a ranked modernization plan.
+- Still to import: `wp-content/plugins/` (the plugins `scp` didn't make it into the first push —
+  re-run Part D's plugins line from the Windows walkthrough, then commit and push).
+
 ## Step 1 — Enable SSH on SiteGround (one time)
 
 1. Log in to SiteGround and open **Site Tools** for maketolearn.org.
