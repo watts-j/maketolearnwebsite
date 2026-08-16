@@ -14,7 +14,8 @@ before acting — abandonment notes are best-effort.
   daily, and 6.3.6.1 sits right at the October 2024 security-release boundary. Update first.
 - **Four overlapping content-modeling plugins** are active at once: Advanced Custom Fields,
   Custom Field Suite, CMB2, and Custom Post Type UI. The theme actively uses ACF *and* CFS;
-  nothing found in theme code uses CMB2. Long-term: consolidate onto ACF + code-registered CPTs.
+  CMB2's only consumer is Constant Contact Forms, which bundles its own copy of it anyway.
+  Long-term: consolidate onto ACF + code-registered CPTs.
 - **Three font systems**: Google Fonts hardcoded in the theme, plus the Custom Fonts and Fonts
   Plugin (olympus-google-fonts) plugins. Pick one.
 - **Auto-updates are off for every plugin.** With a git snapshot now in place, consider enabling
@@ -33,21 +34,21 @@ before acting — abandonment notes are best-effort.
 | duplicate-page | 4.5.9 | Editor convenience; maintained |
 | advanced-custom-fields | 6.3.6.1 → **6.8.7** | **Update immediately** — theme depends on it (`get_field` throughout); currently 2 years behind |
 | custom-post-type-ui | 1.19.3 | **Holds the site's CPT/taxonomy definitions in the database** (`activities`, `kitgroup`, `inventions`). Keep until definitions are exported to code (its Tools → Get Code feature), then retire |
-| custom-field-suite | 2.6.7 | Powers the activity `steps` repeater — hard theme dependency. In maintenance mode upstream (*verify*); plan a CFS→ACF migration, keep until then |
+| custom-field-suite | 2.6.7 | Powers the activity `steps` repeater — hard theme dependency. Tested up to WP 6.5, consistent with upstream maintenance mode; plan a CFS→ACF migration, keep until then |
 | constant-contact-forms | 2.13.0 → 2.21.0 **(blocked: needs PHP 8.1)** | Mailing-list forms (`ctct_forms`/`ctct_lists` exist in DB; the homepage embed is commented out in the theme — check where forms are actually used). Update right after the PHP upgrade |
 
 ## Evaluate — likely redundant, remove after verifying
 
 | Plugin | Version | Concern |
 | --- | --- | --- |
-| cmb2 | 2.12.0 | Metabox framework; no usage found in theme code — probably a leftover. Verify nothing else calls it, then remove |
+| cmb2 | 2.12.0 | Metabox framework. Constant Contact Forms is the only consumer found — and it bundles its own copy (`vendor/cmb2/`), so the standalone plugin is likely redundant. Deactivate on staging, confirm forms still work, then remove |
 | custom-fonts | 2.1.17 | Redundant with hardcoded Google Fonts and Fonts Plugin — keep exactly one font mechanism |
 | olympus-google-fonts (Fonts Plugin) | 4.1.3 → 4.2.1 | Same as above; update it if it's the keeper, otherwise remove |
 | widget-context | 1.4.0 | Scopes widget visibility; check whether any widget actually uses rules before removing |
-| category-posts-in-custom-menu | 3.0.6 | Niche menu helper; verify a menu actually depends on it (the "Inventions" menu location is a candidate) |
-| template-for-custom-post-types | 1.0.4 | Obscure, appears abandoned (*verify*); m2l ships its own CPT templates — likely removable |
-| image-placeholder | 1.0 | v1.0, ancient; likely a leftover from the holder.js era of the old kit template |
-| bootstrap-3-shortcodes | 3.3.12 | Abandoned (~2017) and Bootstrap 3's CSS **doesn't even load on this site** (see theme inventory) — any `[bootstrap]` shortcodes in content render unstyled. Search content for usage, convert those pages, remove |
+| category-posts-in-custom-menu | 3.0.6 | Maintained (tested up to WP 7.0). Niche menu helper; verify a menu actually depends on it (the "Inventions" menu location is a candidate) |
+| template-for-custom-post-types | 1.0.4 | Abandoned (readme: tested up to WP 4.6, 2016); m2l ships its own CPT templates — likely removable |
+| image-placeholder | 1.0 | Tested up to WP 3.5 (2012) — deeply abandoned; likely a leftover from the holder.js era of the old kit template |
+| bootstrap-3-shortcodes | 3.3.12 | Abandoned (readme: tested up to WP 4.9, 2018) and Bootstrap 3's CSS **doesn't even load on this site** (see theme inventory) — any `[bootstrap]` shortcodes in content render unstyled. Search content for usage, convert those pages, remove |
 | breeze | 2.5.13 (inactive) | Cloudways cache plugin, inactive, redundant with Speed Optimizer — delete |
 | simple-301-redirects | 2.1.0 | Works, but redirects could live in SiteGround/htaccess; audit the stored redirect list either way |
 
@@ -55,7 +56,7 @@ before acting — abandonment notes are best-effort.
 
 | Plugin | Version | Why |
 | --- | --- | --- |
-| wp-editor | 1.2.9.3 | In-wp-admin theme/plugin **file editor**; abandoned for many years (*verify*). It's an attack-surface amplifier and obsolete now that the code lives in git — edit locally, deploy instead |
+| wp-editor | 1.2.9.3 | In-wp-admin theme/plugin **file editor** (maintained — tested up to WP 6.9 — so the issue is not abandonment). It's an attack-surface amplifier and obsolete now that the code lives in git — edit locally, deploy instead |
 | scripts-n-styles | 3.5.8 | Admin-editable arbitrary JS/CSS stored in the DB; long unmaintained (*verify*). **Export/audit its stored snippets first**, move anything needed into the theme, then remove |
 | show-current-template | 0.5.4 | Developer diagnostic running in production; deactivate (reinstall when debugging) |
 | wordpress-importer | 0.9.5 | Official tool, but it should be deactivated when not actively importing |

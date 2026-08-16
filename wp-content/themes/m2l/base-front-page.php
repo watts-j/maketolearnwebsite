@@ -41,24 +41,28 @@ use Roots\Sage\Wrapper;
      <div class="content row">
        
         <main class="main">
-          <?php 
+          <?php if ( is_home() ) : ?>
+          <?php // Settings → Reading is "Your latest posts": legacy homepage, newest blog post only. ?>
+          <?php
             $args = array(
                 'post_type' => 'post',
                 'order' => 'DESC',
-                        'posts_per_page' => 1,
+                'posts_per_page' => 1,
             );
             $blog_qu = new WP_Query( $args );
-                    while ($blog_qu->have_posts())  {
-                $blog_qu->the_post(); 
+            while ($blog_qu->have_posts())  {
+                $blog_qu->the_post();
                 ?>
-          
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
           	<h4><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h4>
             <div class="text"><?php the_content(); ?></div>
           </article>
-                        
           <?php }
                wp_reset_postdata(); ?>
+          <?php else : ?>
+          <?php // Settings → Reading is "A static page": render that page, editable in wp-admin like any other. ?>
+          <?php include Wrapper\template_path(); ?>
+          <?php endif; ?>
 				</main><!-- /.main -->
           
         <?php get_sidebar( 'primary' ); ?>

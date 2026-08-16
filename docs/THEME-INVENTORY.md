@@ -65,8 +65,8 @@ Wrapper layer (child): `base.php` wraps every view; `base-front-page.php` wraps 
 | Template | Layer | Serves | Notes |
 | --- | --- | --- | --- |
 | `m2l/base.php` | wrapper | every page | Masthead, primary nav, **invention secondary/tertiary menus** (ACF-driven), breadcrumbs, then the wrapped template |
-| `m2l/base-front-page.php` | wrapper | homepage | **Hardcodes the homepage**: renders the latest blog post + primary sidebar and **never includes the wrapped template** — content edited on the front page in wp-admin does not display |
-| `m2l/front-page.php` | main | homepage | Effectively dead (see above) |
+| `m2l/base-front-page.php` | wrapper | homepage | **Fixed 2026-08-16**: now renders the static front page chosen in Settings → Reading (wp-admin-editable); the legacy hardcoded latest-blog-post view remains only while that setting stays "Your latest posts". Deploy per [`HOMEPAGE-FIX.md`](HOMEPAGE-FIX.md) |
+| `m2l/front-page.php` | main | homepage | Renders the front page's content (no page-title heading) |
 | `m2l/template-inventionkit.php` | page template | "InventionKits Listing Template" | Lists `kitgroup` posts → their `inventions` terms sorted by ACF term field `order`, image from term field `image_url`, each linking to the term's first `activities` post |
 | `m2l/templates/content-single-activities.php` | partial | single activity | Steps from CFS `steps` repeater; "Make page" meta box (ACF: difficulty, estimated_time, tools, parts, cad_file, resource_link) |
 | `m2l/templates/{head,header,footer,sidebar,content}.php` | partials | all pages | head: Google Fonts + raw `the_field('header_script')`; header: inline-SVG logo; footer: SITE copyright; sidebar: per-activity step nav + widgets |
@@ -128,8 +128,9 @@ Bugs regardless of PHP version:
 7. `sage/taxonomy-inventions.php:11` — stray `a` printed into every inventions archive page.
 8. `m2l/template-inventionkit.php:29-33` — inventions sorted via `$sorted[$order] = $term`:
    **two terms with the same ACF `order` value silently drop one kit from the listing**.
-9. `m2l/base-front-page.php` — homepage never renders the front page's own content (may be
-   intentional, but it means wp-admin edits to that page do nothing).
+9. `m2l/base-front-page.php` — homepage never rendered the front page's own content, so wp-admin
+   edits to the homepage did nothing. **Fixed in this repo 2026-08-16** — deploy and switch per
+   [`HOMEPAGE-FIX.md`](HOMEPAGE-FIX.md).
 10. `sage/lib/extras.php` — prev/next overrides apply to all post types (see above); REST
     filters `json_prepare_post/page` target the 2013 REST API v1 plugin — dead code; five
     `add_theme_support('soil-…')` calls but the Soil plugin is not installed — inert.

@@ -14,8 +14,10 @@ push → inventory**. Everything below is written for that flow, with a no-SSH f
 - **Inventories are written**: [`docs/THEME-INVENTORY.md`](docs/THEME-INVENTORY.md) and
   [`docs/PLUGIN-INVENTORY.md`](docs/PLUGIN-INVENTORY.md) — environment facts, architecture,
   defect list, and a ranked modernization plan.
-- Still to import: `wp-content/plugins/` (the plugins `scp` didn't make it into the first push —
-  re-run Part D's plugins line from the Windows walkthrough, then commit and push).
+- `wp-content/plugins/` imported 2026-08-16 — all 24 plugins are now in the repo.
+- **Homepage fix ready to deploy**: the theme now renders a real, wp-admin-editable front page
+  once Settings → Reading points at one — deploy steps in
+  [`docs/HOMEPAGE-FIX.md`](docs/HOMEPAGE-FIX.md).
 
 ## Step 1 — Enable SSH on SiteGround (one time)
 
