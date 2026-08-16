@@ -196,6 +196,10 @@ git push
 If `git commit` says "Please tell me who you are", run the two `git config` commands it prints
 (with your name and email), then run the commit and push again.
 
+`git push` uploads your commit to **your GitHub repository** (the copy git nicknames `origin`).
+It does not touch the live site — SiteGround keeps serving maketolearn.org exactly as before;
+everything in this walkthrough only *reads* from the server.
+
 ## Part G — Optional but smart: a full backup, outside the repo
 
 The repo holds code only. Grab a database backup too, and keep it somewhere private on your PC —
