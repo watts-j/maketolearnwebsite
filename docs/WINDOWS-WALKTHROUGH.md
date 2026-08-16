@@ -57,6 +57,11 @@ command should print something, the expected result is described — check it be
      IdentityFile ~/.ssh/siteground.key
    ```
 
+   Replace **only** the two `PASTE-...` values. Keep `HostName` and `User` spelled exactly as
+   shown, with no colons anywhere: SSH's config format is `Keyword value` separated by a space,
+   and it calls the username `User`. Pasting Site Tools' `Hostname: ...` / `Username: ...` lines
+   as-is produces the `Bad configuration option` error covered in the fixes below.
+
 6. Test the connection:
 
    ```powershell
@@ -69,6 +74,11 @@ command should print something, the expected result is described — check it be
      come back to PowerShell.
 
    **If it fails:**
+   - `Bad configuration option: hostname:` (or `username:`) — the config file contains Site
+     Tools' credential labels pasted as-is (`Hostname: ssh...`, `Username: u1234-...`). SSH has
+     its own spelling: no colons anywhere, and the username keyword is `User`, not `Username`.
+     Reopen the file (`notepad $HOME\.ssh\config`) and make its contents exactly the step 5
+     block, so the middle lines read like `HostName ssh.example.com` and `User u1234-ab12cd34`.
    - `Could not resolve hostname siteground` — ssh isn't finding the config file. Run
      `dir $HOME\.ssh`: if the file shows up as `config.txt`, Notepad added a hidden extension —
      rename it with `ren $HOME\.ssh\config.txt config` and retry. If there's no config file at
