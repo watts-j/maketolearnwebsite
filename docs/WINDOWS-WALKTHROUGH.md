@@ -70,8 +70,9 @@ command should print something, the expected result is described — check it be
 
    - First time, it asks `Are you sure you want to continue connecting?` — type `yes`, Enter.
    - If you set a passphrase when generating the key, it asks for it (typing is invisible — normal).
-   - Success looks like a Linux prompt (something ending in `$`). Type `exit` and press Enter to
-     come back to PowerShell.
+   - Success looks like a Linux prompt (something ending in `siteground.biz:~$`). Type `exit`
+     and press Enter to come back to PowerShell — every later command in this walkthrough is
+     typed at your PC's PowerShell prompt (`PS C:\...>`), not inside the server.
 
    **If it fails:**
    - `Bad configuration option: hostname:` (or `username:`) — the config file contains Site
@@ -114,6 +115,13 @@ If a GitHub sign-in window pops up, complete it in the browser. You should end u
 containing `README.md`, `scripts`, and `docs`.
 
 ## Part C — Checkpoint: confirm the site's folder on the server
+
+First check your prompt. It should start with `PS C:\` (your PC). If it ends with
+`siteground.biz:~$`, you're still logged into the server from Part A — type `exit` first. The
+`ssh siteground "..."` commands below log in, run the quoted command on the server, and log out
+again automatically; running them *while already on the server* fails with
+`Could not resolve hostname siteground`, because the `siteground` shortcut lives in your PC's
+config file, not on the server.
 
 ```powershell
 ssh siteground "ls www"
