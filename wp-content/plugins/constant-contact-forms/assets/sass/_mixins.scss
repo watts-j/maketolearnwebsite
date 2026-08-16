@@ -1,0 +1,36 @@
+@use "sass:map";
+@use "variables";
+
+// sass-lint:disable class-name-format no-qualifying-elements id-name-format
+//--------------------------------------------------------------
+//   MIXINS
+//--------------------------------------------------------------
+
+/// Mixin to manage responsive breakpoints
+///
+/// @author Hugo Giraudel
+/// @param {String} $breakpoint - Breakpoint name
+/// @require $breakpoints
+@mixin wider-than( $breakpoint ) {
+
+	@if map.has-key( variables.$breakpoints, $breakpoint ) {
+		@media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+			@content;
+		}
+	} @else {
+		@warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. '
+		+ 'Available breakpoints are: #{map.keys(variables.$breakpoints)}.';
+	}
+}
+
+/// Mixin to add Clearfix styles
+///
+/// @author Constant Contact
+@mixin clearfix {
+
+	&::after {
+		clear: both;
+		content: '';
+		display: table;
+	}
+}

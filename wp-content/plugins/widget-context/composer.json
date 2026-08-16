@@ -1,0 +1,70 @@
+{
+  "name": "kasparsd/widget-context",
+  "description": "WordPress plugin for showing or hiding widgets on specific posts, pages and sections of a site.",
+  "homepage": "https://widgetcontext.com",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Kaspars Dambis",
+      "homepage": "https://widgetcontext.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/kasparsd/widget-context-wporg/issues",
+    "source": "https://github.com/kasparsd/widget-context-wporg"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "7.4"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "require-dev": {
+    "10up/wp_mock": "^1.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+    "mockery/mockery": "^1.6",
+    "php-coveralls/php-coveralls": "^2.9",
+    "phpcompatibility/phpcompatibility-wp": "^3.0@alpha",
+    "phpmd/phpmd": "^2.15",
+    "phpunit/phpunit": "^9.6",
+    "wp-coding-standards/wpcs": "^3.3",
+    "yoast/phpunit-polyfills": "^4.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Preseto\\WidgetContextTest\\": "tests/php/"
+    }
+  },
+  "scripts": {
+    "lint": [
+      "composer validate --no-check-publish --strict",
+      "phpcs"
+    ],
+    "format": [
+      "phpcbf"
+    ],
+    "mess": [
+      "phpmd ./src text phpmd.xml --suffixes php"
+    ],
+    "test": [
+      "phpunit"
+    ],
+    "coverage": [
+      "php-coveralls -v"
+    ],
+    "release": [
+      "composer install --no-dev --prefer-dist --optimize-autoloader"
+    ]
+  }
+}
