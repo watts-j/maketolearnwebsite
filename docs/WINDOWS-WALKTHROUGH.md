@@ -114,6 +114,16 @@ cd maketolearnwebsite
 If a GitHub sign-in window pops up, complete it in the browser. You should end up in a folder
 containing `README.md`, `scripts`, and `docs`.
 
+If clone stops with `destination path 'maketolearnwebsite' already exists`, a folder from an
+earlier attempt is in the way. Set it aside (nothing is deleted — it keeps whatever it had) and
+clone again:
+
+```powershell
+ren maketolearnwebsite maketolearnwebsite-old
+git clone https://github.com/watts-j/maketolearnwebsite.git
+cd maketolearnwebsite
+```
+
 ## Part C — Checkpoint: confirm the site's folder on the server
 
 First check your prompt. It should start with `PS C:\` (your PC). If it ends with
