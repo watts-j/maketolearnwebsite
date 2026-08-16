@@ -1,0 +1,28 @@
+hook,next_run_gmt,next_run_relative,recurrence
+wp_privacy_delete_old_export_files,"2026-08-16 20:24:54","3 minutes 17 seconds","1 hour"
+delete_expired_transients,"2026-08-16 22:09:26","1 hour 47 minutes","1 day"
+updraftplus_clean_temporary_files,"2026-08-17 00:52:20","4 hours 30 minutes","12 hours"
+sgs_email_cron,"2026-08-17 01:56:00","5 hours 34 minutes","1 week"
+sg_ai_studio_key_refresh_cron,"2026-08-17 03:35:00","7 hours 13 minutes","4 weeks 1 day"
+sg_ai_studio_clear_logs_cron,"2026-08-17 03:35:06","7 hours 13 minutes","1 day"
+sg_ai_studio_cleanup_temp_cron,"2026-08-17 03:35:06","7 hours 13 minutes","1 day"
+wp_update_themes,"2026-08-17 03:42:33","7 hours 20 minutes","12 hours"
+wp_version_check,"2026-08-17 03:42:39","7 hours 21 minutes","12 hours"
+wp_update_plugins,"2026-08-17 03:42:43","7 hours 21 minutes","12 hours"
+update_network_counts,"2026-08-17 04:20:02","7 hours 58 minutes","12 hours"
+wp_update_user_counts,"2026-08-17 04:59:24","8 hours 37 minutes","12 hours"
+monsterinsights_feature_feedback_checkin,"2026-08-17 05:20:35","8 hours 58 minutes","1 day"
+wp_scheduled_delete,"2026-08-17 15:42:52","19 hours 21 minutes","1 day"
+wp_scheduled_auto_draft_delete,"2026-08-17 16:54:34","20 hours 32 minutes","1 day"
+siteground_optimizer_check_assets_dir,"2026-08-17 17:08:01","20 hours 46 minutes","1 day"
+recovery_mode_clean_expired_keys,"2026-08-17 19:39:14","23 hours 17 minutes","1 day"
+siteground_security_clear_logs_cron,"2026-08-17 20:05:29","23 hours 43 minutes","1 day"
+monsterinsights_cache_daily_cleanup,"2026-08-17 20:13:58","23 hours 52 minutes","1 day"
+monsterinsights_feature_feedback_clear_expired,"2026-08-19 05:20:35","2 days 8 hours","1 week"
+monsterinsights_usage_tracking_cron,"2026-08-19 12:05:47","2 days 15 hours","1 week"
+acf_update_site_health_data,"2026-08-19 21:33:03","3 days 1 hour","1 week"
+wp_delete_temp_updater_backups,"2026-08-21 13:58:53","4 days 17 hours","1 week"
+wp_site_health_scheduled_check,"2026-08-21 16:28:46","4 days 20 hours","1 week"
+monsterinsights_product_feed_monthly_check,"2026-08-31 02:28:59","2 weeks",Non-repeating
+monsterinsights_email_summaries_cron,"2026-08-31 18:02:14","2 weeks",Non-repeating
+monsterinsights_charitable_notice_cron,"2026-09-07 18:53:26","3 weeks",Non-repeating

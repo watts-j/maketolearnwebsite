@@ -1,0 +1,11 @@
+name,status,update,version,update_version,auto_update,enabled
+generatepress,inactive,available,3.4.0,3.6.1,off,no
+m2l,active,none,1.0.3,,off,network
+sage,parent,none,8.4.2,,off,network
+twentynineteen,inactive,available,2.8,3.3,off,no
+twentytwenty,inactive,available,2.6,3.1,off,no
+twentytwentyfive,inactive,available,1.0,1.5,off,no
+twentytwentyfour,inactive,available,1.1,1.5,off,no
+twentytwentyone,inactive,available,2.2,2.8,off,no
+twentytwentythree,inactive,available,1.4,1.6,off,no
+twentytwentytwo,inactive,available,1.7,2.1,off,network

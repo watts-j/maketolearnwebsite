@@ -1,0 +1,40 @@
+* { 
+	font-family: "Open Sans";
+}
+
+.nav .h1, .nav .h2, .nav .h3, .nav h1, .nav h2, .nav h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#menu-primary-navigation li a { 
+	font-size: 20px;
+}
+
+.nav-secondary { 
+	margin-bottom:20px;
+}
+
+.invention-listing { 
+	margin-top: 40px;
+}
+
+#menu-inventions .current-menu-item { 
+	background-color: #2b4d77;
+	
+}
+
+#menu-inventions .current-menu-item a { 
+	color: white;	
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+	background-color: #2b4d77;
+	color: white;
+	
+}
+
+.sidebar .affix, div.well.sidebar-nav.affix {
+    width: 263px;
+    top: 10px;
+}
