@@ -1,0 +1,27 @@
+name,label,description,hierarchical,public,capability_type
+post,Posts,,,1,post
+page,Pages,,1,1,page
+attachment,Media,,,1,post
+revision,Revisions,,,,post
+nav_menu_item,"Navigation Menu Items",,,,edit_theme_options
+custom_css,"Custom CSS",,,,post
+customize_changeset,Changesets,,,,customize_changeset
+oembed_cache,"oEmbed Responses",,,,post
+user_request,"User Requests",,,,post
+wp_block,Patterns,,,,block
+wp_template,Templates,"Templates to include in your theme.",,,template
+wp_template_part,"Template Parts","Template parts to include in your templates.",,,post
+wp_global_styles,"Global Styles","Global styles to include in themes.",,,post
+wp_navigation,"Navigation Menus","Navigation menus that can be inserted into your site.",,,post
+wp_font_family,"Font Families",,,,post
+wp_font_face,"Font Faces",,,,post
+acf-taxonomy,Taxonomies,,1,,post
+acf-post-type,"Post Types",,1,,post
+acf-field-group,"Field Groups",,1,,post
+acf-field,Fields,,1,,post
+ctct_forms,Forms,"Constant Contact Forms.",,,page
+ctct_lists,Lists,"Constant Contact lists.",,1,page
+cfs,"Field Groups",,,,page
+activities,Activities,,1,1,post
+kitgroup,"Invention Kit Groups",,,1,post
+monsterinsights_note,Posts,,,,post
