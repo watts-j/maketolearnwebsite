@@ -1,0 +1,474 @@
+<?php
+/**
+ * Custom Post Types.
+ *
+ * @package ConstantContact
+ * @subpackage CPTS
+ * @author Constant Contact
+ * @since 1.0.0
+ *
+ * phpcs:disable WebDevStudios.All.RequireAuthor -- Don't require author tag in docblocks.
+ */
+
+/**
+ * Powers our custom post types.
+ *
+ * @internal
+ *
+ * @since 1.0.0
+ */
+class ConstantContact_CPTS {
+
+	/**
+	 * Parent plugin class.
+	 *
+	 * @since 1.0.0
+	 * @var object
+	 */
+	protected object $plugin;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since 1.0.0
+	 * @param object $plugin Parent class.
+	 */
+	public function __construct( $plugin ) {
+		$this->plugin = $plugin;
+		$this->hooks();
+	}
+
+	/**
+	 * Initiate our hooks.
+	 *
+	 * @since 1.0.0
+	 */
+	public function hooks() {
+		add_action( 'init', [ $this, 'forms_post_type' ] );
+		add_action( 'init', [ $this, 'lists_post_type' ] );
+
+		add_filter( 'post_updated_messages', [ $this, 'post_updated_messages' ] );
+		add_filter( 'enter_title_here', [ $this, 'change_default_title' ], 10, 2 );
+
+		add_filter( 'post_row_actions', [ $this, 'duplicate_form_link' ], 10, 2 );
+		add_action( 'admin_menu', [ $this, 'maybe_duplicate_form' ] );
+		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
+	}
+
+	/**
+	 * Register Custom Post Type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function forms_post_type() {
+
+		$labels = [
+			'name'                     => esc_html_x( 'Forms', 'Post type general name', 'constant-contact-forms' ),
+			'singular_name'            => esc_html_x( 'Form', 'Post type singular name', 'constant-contact-forms' ),
+			'menu_name'                => esc_html__( 'Contact form', 'constant-contact-forms' ),
+			'name_admin_bar'           => esc_html__( 'Contact form', 'constant-contact-forms' ),
+			'archives'                 => esc_html__( 'Form archives', 'constant-contact-forms' ),
+			'parent_item_colon'        => esc_html__( 'Parent form:', 'constant-contact-forms' ),
+			'all_items'                => esc_html__( 'Forms', 'constant-contact-forms' ),
+			'add_new_item'             => esc_html__( 'Add new form', 'constant-contact-forms' ),
+			'add_new'                  => esc_html__( 'Add form', 'constant-contact-forms' ),
+			'new_item'                 => esc_html__( 'New form', 'constant-contact-forms' ),
+			'edit_item'                => esc_html__( 'Edit form', 'constant-contact-forms' ),
+			'update_item'              => esc_html__( 'Update form', 'constant-contact-forms' ),
+			'view_item'                => esc_html__( 'View form', 'constant-contact-forms' ),
+			'search_items'             => esc_html__( 'Search forms', 'constant-contact-forms' ),
+			'not_found'                => esc_html__( 'No forms found', 'constant-contact-forms' ),
+			'not_found_in_trash'       => esc_html__( 'No forms found in trash', 'constant-contact-forms' ),
+			'insert_into_item'         => esc_html__( 'Insert into form', 'constant-contact-forms' ),
+			'uploaded_to_this_item'    => esc_html__( 'Uploaded to this form', 'constant-contact-forms' ),
+			'items_list'               => esc_html__( 'Forms list', 'constant-contact-forms' ),
+			'items_list_navigation'    => esc_html__( 'Forms list navigation', 'constant-contact-forms' ),
+			'filter_items_list'        => esc_html__( 'Filter forms list', 'constant-contact-forms' ),
+			'item_published'           => esc_html__( 'Form published', 'constant-contact-forms' ),
+			'item_published_privately' => esc_html__( 'Form published privately', 'constant-contact-forms' ),
+			'item_reverted_to_draft'   => esc_html__( 'Form reverted to draft', 'constant-contact-forms' ),
+			'item_scheduled'           => esc_html__( 'Form scheduled', 'constant-contact-forms' ),
+			'item_trashed'             => esc_html__( 'Form trashed', 'constant-contact-forms' ),
+			'item_updated'             => esc_html__( 'Form updated', 'constant-contact-forms' ),
+		];
+		$args   = [
+			'label'               => esc_html__( 'Constant Contact', 'constant-contact-forms' ),
+			'description'         => esc_html__( 'Constant Contact Forms.', 'constant-contact-forms' ),
+			'labels'              => $labels,
+			'supports'            => [ 'title' ],
+			'taxonomies'          => [],
+			'hierarchical'        => false,
+			'public'              => false,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'menu_position'       => 20,
+			'menu_icon'           => constant_contact()->url . 'assets/images/ctct-icon.png',
+			'show_in_admin_bar'   => true,
+			'show_in_nav_menus'   => false,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => false,
+			'publicly_queryable'  => false,
+			'capability_type'     => 'page',
+			'show_in_rest'        => true,
+		];
+		register_post_type( 'ctct_forms', $args );
+
+	}
+
+	/**
+	 * Register Custom Post Type.
+	 *
+	 * @since 1.0.0
+	 */
+	public function lists_post_type() {
+
+		$labels = [
+			'name'                  => esc_html_x( 'Lists', 'Post type general name', 'constant-contact-forms' ),
+			'singular_name'         => esc_html_x( 'List', 'Post type singular name', 'constant-contact-forms' ),
+			'menu_name'             => esc_html__( 'Lists', 'constant-contact-forms' ),
+			'name_admin_bar'        => esc_html__( 'Lists', 'constant-contact-forms' ),
+			'archives'              => esc_html__( 'List archives', 'constant-contact-forms' ),
+			'parent_item_colon'     => esc_html__( 'Parent list:', 'constant-contact-forms' ),
+			'all_items'             => esc_html__( 'Lists', 'constant-contact-forms' ),
+			'add_new_item'          => esc_html__( 'Add new list', 'constant-contact-forms' ),
+			'add_new'               => esc_html__( 'Add new list', 'constant-contact-forms' ),
+			'new_item'              => esc_html__( 'New list', 'constant-contact-forms' ),
+			'edit_item'             => esc_html__( 'Edit list', 'constant-contact-forms' ),
+			'update_item'           => esc_html__( 'Update list', 'constant-contact-forms' ),
+			'view_item'             => esc_html__( 'View list', 'constant-contact-forms' ),
+			'search_items'          => esc_html__( 'Search lists', 'constant-contact-forms' ),
+			'not_found'             => esc_html__( 'Not found', 'constant-contact-forms' ),
+			'not_found_in_trash'    => esc_html__( 'Not found in trash', 'constant-contact-forms' ),
+			'insert_into_item'      => esc_html__( 'Insert into list', 'constant-contact-forms' ),
+			'uploaded_to_this_item' => esc_html__( 'Uploaded to this list', 'constant-contact-forms' ),
+			'items_list'            => esc_html__( 'Lists list', 'constant-contact-forms' ),
+			'items_list_navigation' => esc_html__( 'Lists list navigation', 'constant-contact-forms' ),
+			'filter_items_list'     => esc_html__( 'Filter lists list', 'constant-contact-forms' ),
+		];
+		$args   = [
+			'label'               => esc_html__( 'Constant Contact', 'constant-contact-forms' ),
+			'description'         => esc_html__( 'Constant Contact lists.', 'constant-contact-forms' ),
+			'labels'              => $labels,
+			'supports'            => [ 'title' ],
+			'taxonomies'          => [],
+			'hierarchical'        => false,
+			'public'              => true,
+			'show_ui'             => true,
+			'show_in_menu'        => 'edit.php?post_type=ctct_forms',
+			'menu_position'       => 20,
+			'show_in_admin_bar'   => false,
+			'show_in_nav_menus'   => false,
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => false,
+			'capability_type'     => 'page',
+		];
+
+		register_post_type( 'ctct_lists', $args );
+	}
+
+	/**
+	 * Custom post update messages to match CPT naming.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $messages Default update messages.
+	 * @return array appended update messages with custom post types.
+	 */
+	public function post_updated_messages( $messages ) : array {
+		global $post;
+
+		$revision = filter_input( INPUT_GET, 'revision', FILTER_SANITIZE_NUMBER_INT );
+
+		$messages['ctct_lists'] = [
+			0  => '', // Unused. Messages start at index 1.
+			1  => esc_html__( 'List updated.', 'constant-contact-forms' ),
+			2  => esc_html__( 'Custom field updated.', 'constant-contact-forms' ),
+			3  => esc_html__( 'Custom field deleted.', 'constant-contact-forms' ),
+			4  => esc_html__( 'List updated.', 'constant-contact-forms' ),
+			5  => ! empty( $revision ) ?
+				/* translators: formatted revision timestamp. */
+				sprintf( esc_html__( 'List restored to revision from %s', 'constant-contact-forms' ), wp_post_revision_title( $revision, false ) ) :
+				false,
+			6  => esc_html__( 'List published.', 'constant-contact-forms' ),
+			7  => esc_html__( 'List saved.', 'constant-contact-forms' ),
+			8  => esc_html__( 'List submitted.', 'constant-contact-forms' ),
+			/* translators: formatted post date timestamp. */
+			9  => esc_html__( 'List scheduled for: <strong>%1$s</strong>.', 'constant-contact-forms' ),
+			date_i18n( 'M j, Y @ G:i', strtotime( $post->post_date ) ),
+			10 => esc_html__( 'List draft updated.', 'constant-contact-forms' ),
+		];
+
+		$messages['ctct_forms'] = [
+			0  => '', // Unused. Messages start at index 1.
+			1  => esc_html__( 'Form updated.', 'constant-contact-forms' ),
+			2  => esc_html__( 'Custom field updated.', 'constant-contact-forms' ),
+			3  => esc_html__( 'Custom field deleted.', 'constant-contact-forms' ),
+			4  => esc_html__( 'Form updated.', 'constant-contact-forms' ),
+			5  => ! empty( $revision ) ?
+				/* translators: formatted revision timestamp. */
+				sprintf( esc_html__( 'Form restored to revision from %s', 'constant-contact-forms' ), wp_post_revision_title( $revision, false ) ) :
+				false,
+			6  => sprintf(
+					/* translators: form shortcode. */
+				esc_html__( "Success! Here's the shortcode: %s. Just paste it into a post or page editor to publish", 'constant-contact-forms' ),
+				'<strong>' . constant_contact_display_shortcode( $post->ID ) . '</strong>'
+			),
+			7  => esc_html__( 'Form saved.', 'constant-contact-forms' ),
+			8  => esc_html__( 'Form submitted.', 'constant-contact-forms' ),
+			/* translators: formatted post date timestamp. */
+			9  => esc_html__( 'Form scheduled for: <strong>%1$s</strong>.', 'constant-contact-forms' ),
+			date_i18n( 'M j, Y @ G:i', strtotime( $post->post_date ) ),
+			10 => esc_html__( 'Form draft updated.', 'constant-contact-forms' ),
+		];
+
+		return $messages;
+	}
+
+	/**
+	 * Customize the "Enter your title" placeholder text for Title field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $title Desired placeholder text.
+	 * @param WP_Post $post Post object.
+	 * @return string $title output string
+	 */
+	public function change_default_title( string $title, WP_Post $post ) : string {
+
+		if ( 'ctct_forms' === $post->post_type ) {
+			$title = sprintf(
+				'%s <span class="ctct-admin-title-details">%s</span>',
+				esc_html__( 'Enter a form name', 'constant-contact-forms' ),
+				esc_html__( '(Examples: Join Our Email List, Contact Us)', 'constant-contact-forms' )
+			);
+
+		}
+
+		return $title;
+	}
+
+	/**
+	 * Returns array of form ids.
+	 * Can return more information with `true` passed to the first parameter.
+	 * Caches results, pass `true` to the second parameter to bust the cache.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param bool $expanded_data Set `true` to process the retrieved posts.
+	 * @param bool $bust_cache    Set `true` to bust the cached forms.
+	 * @return array
+	 */
+	public function get_forms( $expanded_data = false, $bust_cache = false ) {
+
+		$forms = get_transient( ConstantContact_Shortcode::FORMS_LIST_TRANSIENT );
+
+		/**
+		 * Filters whether or not to bypass transient checks.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $value Whether or not to bypass.
+		 */
+		$bypass_forms = apply_filters( 'constant_contact_bypass_shotcode_forms', false );
+
+		if ( false === $forms || $bypass_forms || $bust_cache ) {
+
+			$query = new WP_Query(
+				[
+					'post_status'            => 'publish',
+					'post_type'              => 'ctct_forms',
+					'no_found_rows'          => true,
+					'update_post_term_cache' => false,
+				]
+			);
+
+			$q_forms = $query->get_posts();
+
+			if ( is_wp_error( $q_forms ) && ! is_array( $q_forms ) ) {
+				return [];
+			}
+
+			if ( ! $expanded_data ) {
+				return $q_forms;
+			}
+
+			$forms = [];
+
+			foreach ( $q_forms as $form ) {
+
+				if (
+					isset( $form->ID ) &&
+					$form->ID &&
+					isset( $form->post_title ) &&
+					isset( $form->post_modified )
+				) {
+					$title         = $form->post_title ?: __( 'No title', 'constant-contact-forms' );
+					$last_modified = human_time_diff( strtotime( $form->post_modified ), current_time( 'timestamp' ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
+
+					$title = sprintf(
+						// translators: Placeholders will be form title and then last modified date.
+						esc_html__( '%1$s (last modified %2$s ago)', 'constant-contact-forms' ),
+						$title,
+						$last_modified
+					);
+
+					$forms[ absint( $form->ID ) ] = $title;
+				}
+			}
+
+			set_transient( ConstantContact_Shortcode::FORMS_LIST_TRANSIENT, $forms, 1 * HOUR_IN_SECONDS );
+		}
+
+		return $forms;
+	}
+
+	/**
+	 * Add a "Duplicate form" action to forms in our `ctct_forms` list table.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param array   $actions Current array of actions for a post in the list table,
+	 * @param WP_Post $post    Post object for the current post being listed.
+	 *
+	 * @return array
+	 */
+	public function duplicate_form_link( $actions, $post ) : array {
+		if ( 'ctct_forms' !== $post->post_type ) {
+			return $actions;
+		}
+
+		if ( current_user_can( 'edit_posts' ) ) {
+			$duplicate_url_args = [
+				'action'  => 'duplicate_ctct_form',
+				'post_id' => absint( $post->ID ),
+			];
+			$duplicate_url = add_query_arg(
+				$duplicate_url_args, admin_url( 'edit.php?post_type=ctct_forms' )
+			);
+
+			$actions['ctct-forms-duplicate'] = sprintf(
+				'<a href="%1$s">%2$s</a>',
+				esc_url( wp_nonce_url( $duplicate_url, 'ctct_duplicate_form', 'ctct_duplicate_form' ) ),
+				esc_html__( 'Duplicate form', 'constant-contact-forms' )
+			);
+		}
+
+		return $actions;
+	}
+
+	/**
+	 * Maybe prrocess a clicked "Duplicate form" link.
+	 *
+	 * @since 2.8.0
+	 */
+	public function maybe_duplicate_form() {
+		if ( empty( $_GET ) ) {
+			return;
+		}
+
+		if (
+			isset( $_GET['ctct_duplicate_form'] ) &&
+			check_admin_referer( 'ctct_duplicate_form', 'ctct_duplicate_form' )
+		) {
+			if ( ! isset( $_GET['post_id'] ) ) {
+				wp_die( esc_html__( 'No form to duplicate has been supplied.', 'constant-contact-forms' ) );
+			}
+
+			$returned_id = $this->duplicate_form( absint( $_GET['post_id'] ) );
+
+			$success = 'false';
+			if ( $returned_id ) {
+				$success = 'true';
+			}
+
+			wp_safe_redirect(
+				add_query_arg(
+					[
+						'ctct_duplicate_form_success' => $success
+					],
+					admin_url( 'edit.php?post_type=ctct_forms' )
+				)
+			);
+			exit();
+		}
+	}
+
+	/**
+	 * Perform a duplication of a clicked form.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param int $post_id Form ID to duplicate.
+	 * @return false|int|WP_Error
+	 */
+	protected function duplicate_form( int $post_id ) {
+		$to_copy_post = get_post( $post_id );
+		$curr_user    = wp_get_current_user();
+		$to_be_author = $curr_user->ID;
+
+		if ( ! empty( $to_copy_post ) ) {
+			$form_args = [
+				'comment_status' => $to_copy_post->comment_status,
+				'ping_status'    => $to_copy_post->ping_status,
+				'post_author'    => $to_be_author,
+				'post_content'   => $to_copy_post->post_content,
+				'post_excerpt'   => $to_copy_post->post_excerpt,
+				'post_name'      => $to_copy_post->post_name,
+				'post_status'    => 'publish',
+				'post_title'     => $to_copy_post->post_title,
+				'post_type'      => 'ctct_forms',
+			];
+
+			$copied_form_post_id = wp_insert_post( $form_args );
+
+			$meta_keys   = get_post_meta( $to_copy_post->ID );
+			$copied_meta = [];
+			foreach ( $meta_keys as $meta_key => $meta_key_value ) {
+				// WP has a polyfill for this PHP8 function
+				if ( str_starts_with( $meta_key, '_ctct_' ) ) {
+					$copied_meta[ $meta_key ] = maybe_unserialize( $meta_key_value[0] );
+				}
+			}
+			$copied_meta['custom_fields_group'] = maybe_unserialize( $meta_keys['custom_fields_group'][0] );
+
+			foreach ( $copied_meta as $meta_key => $meta_value ) {
+				update_post_meta( $copied_form_post_id, $meta_key, $meta_value );
+			}
+
+			return $copied_form_post_id;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Add an admin notice with success or failure messaging for form duplication attempts.
+	 *
+	 * @since 2.8.0
+	 */
+	public function admin_notices() {
+		if ( empty( $_GET ) ) {
+			return;
+		}
+
+		if ( empty( $_GET['ctct_duplicate_form_success'] ) ) {
+			return;
+		}
+
+		$message = ( 'true' === sanitize_text_field( $_GET['ctct_duplicate_form_success'] ) ) ?
+			esc_html__( 'Constant Contact Forms form duplication succeeded.', 'constant-contact-forms' ) :
+			esc_html__( 'Constant Contact Forms form duplication failed.', 'constant-contact-forms' );
+		$type    = ( 'true' === sanitize_text_field( $_GET['ctct_duplicate_form_success'] ) ) ? 'success' : 'error';
+		wp_admin_notice(
+			$message,
+			array(
+				'id'          => 'ctct_form_duplication_notice',
+				'type'        => $type,
+				'dismissible' => true,
+			)
+		);
+	}
+}

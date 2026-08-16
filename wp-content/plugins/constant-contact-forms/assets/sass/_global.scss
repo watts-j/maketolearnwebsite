@@ -1,0 +1,39 @@
+@use "sass:color";
+@use "variables";
+
+// sass-lint:disable class-name-format no-qualifying-elements id-name-format
+//--------------------------------------------------------------
+//   Global styling goes here
+//--------------------------------------------------------------
+
+.ctct-form-wrapper {
+
+	.ctct-button {
+		font-size: 0.9rem;
+	}
+
+	.ctct-message {
+		border: 1px solid;
+		padding: variables.$padding;
+
+		&.ctct-error {
+			background-color: color.adjust( variables.$color-error, $alpha: -0.98 );
+			border-color: variables.$color-error;
+			color: color.adjust( variables.$color-error, $lightness: -20% );
+		}
+
+		&.ctct-success {
+			background-color: color.adjust( variables.$color-success, $alpha: -0.98 );
+			border-color: variables.$color-green;
+			color: color.adjust( variables.$color-success, $lightness: -20% );
+		}
+
+		.ctct-dismiss-ajax-notice {
+			border-radius: 50%;
+			float: right;
+			line-height: 1;
+			padding: 0.85rem 1rem;
+			text-decoration: none;
+		}
+	}
+}

@@ -1,0 +1,153 @@
+<?php
+/**
+ * Elementor Widget
+ *
+ * @package ConstantContact
+ * @subpackage Elementor
+ * @author Constant Contact
+ * @since 1.11.0
+ *
+ * phpcs:disable WebDevStudios.All.RequireAuthor -- Don't require author tag in docblocks.
+ */
+
+use Elementor\Controls_Manager;
+use Elementor\Widget_Base;
+
+/**
+ * This class get's everything up an running for Elementor Widget.
+ *
+ * @since 1.11.0
+ */
+class ConstantContact_Elementor_Widget extends Widget_Base {
+
+	/**
+	 * Widgets Name
+	 *
+	 * @since 1.10.0
+	 */
+	public function get_name() : string{
+		return 'constant-contact';
+	}
+
+	/**
+	 * Widgets Title
+	 *
+	 * @since 1.10.0
+	 */
+	public function get_title() {
+		return esc_html__( 'Constant Contact Form', 'constant-contact-forms' );
+	}
+
+	/**
+	 * Widgets Icon
+	 *
+	 * @since 1.10.0
+	 */
+	public function get_icon() : string {
+		return 'eicon-form-horizontal';
+	}
+
+	/**
+	 * Widgets Category
+	 *
+	 * @since 1.10.0
+	 */
+	public function get_categories() : array {
+		return [ 'basic' ];
+	}
+
+	/**
+	 * Widgets keywords
+	 *
+	 * @since 2.13.0
+	 *
+	 * @return string[]
+	 */
+	public function get_keywords() : array {
+		return [ 'contact', 'form', 'constant' ];
+	}
+
+	/**
+	 * Displays Widget Controls.
+	 *
+	 * @since 1.10.0
+	 */
+	protected function register_controls() {
+
+		$this->start_controls_section(
+			'section_title',
+			[
+				'label' => esc_html__( 'Constant Contact Form Settings', 'constant-contact-forms' ),
+			]
+		);
+
+		$this->add_control(
+			'show_title',
+			[
+				'label'        => esc_html__( 'Show Title', 'constant-contact-forms' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Show', 'constant-contact-forms' ),
+				'label_off'    => esc_html__( 'Hide', 'constant-contact-forms' ),
+				'return_value' => true,
+				'default'      => true,
+			]
+		);
+
+		$this->add_control(
+			'form_id',
+			[
+				'label'   => esc_html__( 'Form', 'constant-contact-forms' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => $this->get_form_options(),
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Provides all Constant Contact Forms current Published.
+	 *
+	 * @since 1.10.0
+	 */
+	private function get_form_options() : array {
+
+		$options = [];
+
+		$forms = get_posts(
+			[
+				'post_type'   => 'ctct_forms',
+				'post_status' => 'publish',
+				'numberposts' => -1,
+			]
+		);
+
+		foreach ( $forms as $form ) {
+			$options[ $form->ID ] = $form->post_title;
+		}
+
+		if ( empty( $options ) ) {
+			$options[''] = esc_html__( 'No forms currently published.', 'constant-contact-forms' );
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Displays Widget
+	 *
+	 * @since 1.10.0
+	 */
+	protected function render() {
+		$settings = $this->get_settings_for_display();
+
+		if ( empty( $settings['form_id'] ) ) {
+			echo esc_html__( 'Please select a form.', 'constant-contact-forms' );
+			return;
+		}
+
+		$show_title = $settings['show_title'] ? 'true' : 'false';
+		echo do_shortcode( "[ctct form='{$settings['form_id']}' show_title='$show_title']" );
+	}
+
+}
