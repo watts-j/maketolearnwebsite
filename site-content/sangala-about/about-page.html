@@ -1,0 +1,133 @@
+<!-- About Sangala - page content for maketolearn.org/sangala/.
+     Paste this ENTIRE file into one "Custom HTML" block on the About Sangala page in wp-admin.
+     The page's slug MUST be "sangala" so the homepage button reaches it. The two images must
+     first be uploaded to /wp-content/uploads/sangala/ - see the README.md next to this file. -->
+
+<style>
+/* Everything is scoped under .sangala-about so it cannot restyle the rest of the site.
+   The one exception: a white background for this page (the theme adds the page's slug,
+   "sangala", as a body class). */
+body.sangala{background:#fff}
+
+.sangala-about{
+  /* Same palette as the homepage: eyebrow tan and secondary grey darkened for white. */
+  --ink:#16222c; --denim:#33628a; --kraft:#8a6a3d; --grass:#4e7c3a;
+  --text:#22303b; --muted:#4d5f6d; --rule:#ddd4c6;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:"Segoe UI","Avenir Next",-apple-system,BlinkMacSystemFont,system-ui,"Helvetica Neue",sans-serif;
+  max-width:1100px;margin:0 auto;padding:.5rem 0 1.5rem;
+  color:var(--text);font:400 17px/1.6 var(--sans);background:#fff;
+}
+.sangala-about *{box-sizing:border-box}
+.sangala-about img{display:block;max-width:100%}
+.sangala-about a{color:var(--denim);text-underline-offset:3px}
+.sangala-about a:focus-visible{outline:2px solid var(--grass);outline-offset:3px;border-radius:2px}
+
+/* Title block - formerly the page header, now ordinary content. */
+.sangala-about .intro{padding-bottom:1.1rem;border-bottom:1px solid var(--rule);margin:0 0 1.6rem}
+.sangala-about .eyebrow{font:600 11px/1.4 var(--sans);letter-spacing:.17em;text-transform:uppercase;
+  color:var(--kraft);margin:0 0 .5rem}
+.sangala-about h1{font:400 clamp(1.8rem,3.6vw,2.9rem)/1.05 var(--display);letter-spacing:-.018em;
+  color:var(--ink);margin:0}
+.sangala-about .sub{font:italic 400 clamp(1rem,1.35vw,1.15rem)/1.45 var(--display);
+  color:var(--muted);margin:.5rem 0 0;max-width:62ch}
+
+/* The wide photograph of the place, caption overlaid along its bottom edge. */
+.sangala-about .place{position:relative;margin:0 0 1.7rem;border-radius:3px;overflow:hidden;
+  border:1px solid var(--rule)}
+.sangala-about .place img{width:100%;aspect-ratio:5/2;object-fit:cover;object-position:50% 58%}
+.sangala-about .place figcaption{position:absolute;left:0;right:0;bottom:0;padding:.6rem .8rem;
+  font:400 12px/1.4 var(--sans);color:rgba(255,255,255,.92);
+  background:linear-gradient(to top,rgba(10,16,21,.8),rgba(10,16,21,0))}
+
+/* Two text sections with the conference photograph beside them. */
+.sangala-about .rows{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);
+  column-gap:1.8rem;align-items:start;margin:0 0 1.6rem}
+.sangala-about .texts{display:flex;flex-direction:column;gap:1.15rem;min-width:0}
+.sangala-about .row h2,.sangala-about .reach h2{font:600 12px/1.3 var(--sans);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--denim);margin:0 0 .42rem}
+.sangala-about .row p{font:400 1rem/1.55 var(--sans);margin:0 0 .55rem;color:var(--text)}
+.sangala-about .row p:last-child{margin-bottom:0}
+.sangala-about .rowfig{margin:0}
+.sangala-about .rowfig img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;
+  border:1px solid var(--rule)}
+.sangala-about .rowfig figcaption{font:400 12.5px/1.45 var(--sans);color:var(--muted);
+  margin-top:.45rem;padding-left:.6rem;border-left:2px solid var(--kraft)}
+
+/* The reach statement, set off by a tan bar. */
+.sangala-about .reach{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.9rem;
+  align-items:start;padding:1.1rem 0;border-top:1px solid var(--rule);margin:0 0 1.2rem}
+.sangala-about .reach .bar{width:3px;background:var(--kraft);border-radius:2px;align-self:stretch}
+.sangala-about .reach p{font:400 1.05rem/1.6 var(--sans);margin:0;color:var(--text)}
+
+/* Cross-links - formerly page chrome, now a button row in the body, matching the homepage. */
+.sangala-about .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;
+  padding-top:1.2rem;border-top:1px solid var(--rule);margin:0 0 1.2rem}
+.sangala-about .btn{display:inline-block;font:600 13px/1 var(--sans);text-decoration:none;
+  padding:.72rem 1.05rem;border-radius:2px;border:1px solid var(--rule);
+  background:transparent;color:var(--denim);
+  transition:background .15s ease,border-color .15s ease,color .15s ease}
+.sangala-about .btn:hover{border-color:var(--grass);color:var(--grass)}
+
+.sangala-about .partners{font:400 14px/1.5 var(--sans);color:var(--text);text-align:center;
+  margin:0 0 .5rem}
+.sangala-about .funding{font:400 13px/1.55 var(--sans);color:var(--muted);text-align:center;
+  max-width:60em;margin:0 auto}
+
+@media (max-width:700px){
+  .sangala-about .rows{grid-template-columns:1fr;row-gap:1.1rem}
+  .sangala-about .place img{aspect-ratio:4/3}
+}
+</style>
+
+<div class="sangala-about">
+
+  <div class="intro">
+    <p class="eyebrow">A National Technology Leadership Society (NTLS) Initiative</p>
+    <h1>About Sangala</h1>
+    <p class="sub">A consortium building the capacity to design and fabricate local solutions, in the Mt. Elgon region of east Africa.</p>
+  </div>
+
+  <figure class="place">
+    <img src="/wp-content/uploads/sangala/about-school-mt-elgon.jpg" alt="A secondary school campus on a green hillside, with the Mt. Elgon range rising behind it.">
+    <figcaption>The school and the Mt. Elgon range, east Africa.</figcaption>
+  </figure>
+
+  <div class="rows">
+    <div class="texts">
+      <article class="row">
+        <h2>The Consortium</h2>
+        <p>The consortium includes the International Technology and Engineering Educators Association (ITEEA), the University of Virginia, FabLab Winam in Kisumu, and REACH for Uganda. Over 25 years, REACH has established two clinics, two primary schools, and a high school in the region.</p>
+      </article>
+
+      <article class="row">
+        <h2>The Program</h2>
+        <p>A full-time engineering teacher, Moses Kumenya, directs the Sangala Innovation Center. His students are collaborating with students at the University of Virginia and in Virginia schools.</p>
+      </article>
+    </div>
+
+    <figure class="rowfig">
+      <img src="/wp-content/uploads/sangala/about-wanda-dooley-iteea.jpg" alt="John and Joyce Wanda with ITEEA chief executive Kelly Dooley at the ITEEA conference, holding a poster of the Mount Elgon weather network.">
+      <figcaption>John and Joyce Wanda with ITEEA chief executive Kelly Dooley, holding plans for the Mount Elgon weather network.</figcaption>
+    </figure>
+  </div>
+
+  <section class="reach">
+    <div class="bar"></div>
+    <div>
+      <h2>Addressing Knowledge Barriers in the Global South</h2>
+      <p>Solutions piloted in one community are published in the Educational CAD Model Library and disseminated through ITEEA's Engineering byDesign curriculum, taught by a network of more than 5,000 engineering and technology teachers internationally.</p>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a class="btn" href="/">The Sangala Initiative</a>
+    <a class="btn" href="https://www.cadlibrary.org/objects/V3LXPYQH">Sangala Studio</a>
+    <a class="btn" href="https://www.cadlibrary.org/">CAD Model Library</a>
+  </div>
+
+  <p class="partners">ITEEA &middot; University of Virginia &middot; FabLab Winam, Kenya &middot; REACH for Uganda</p>
+
+  <p class="funding">The work is supported by the University of Virginia Center for Global Inquiry and Innovation, a Thrive Pedagogical Innovation Grant from the Center for Teaching Excellence, and a matching donation from a private donor.</p>
+
+</div>
