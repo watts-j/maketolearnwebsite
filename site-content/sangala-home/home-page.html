@@ -1,0 +1,109 @@
+<!-- The Sangala Initiative - homepage content for maketolearn.org.
+     Paste this ENTIRE file into one "Custom HTML" block on the Home page in wp-admin.
+     The four images must first be uploaded to /wp-content/uploads/sangala/ - see the
+     README.md next to this file for the two commands that do it. -->
+
+<style>
+/* Everything is scoped under .sangala-home so it cannot restyle the rest of the site.
+   The one exception: give the front page a white background instead of the theme's
+   patterned one. */
+body.home{background:#fff}
+
+.sangala-home{
+  /* Palette from the original design, with the eyebrow tan and secondary grey darkened
+     for legible contrast on a white background. */
+  --ink:#16222c; --denim:#33628a; --kraft:#8a6a3d; --grass:#4e7c3a;
+  --text:#22303b; --muted:#4d5f6d; --rule:#ddd4c6;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:"Segoe UI","Avenir Next",-apple-system,BlinkMacSystemFont,system-ui,"Helvetica Neue",sans-serif;
+  max-width:1100px;margin:0 auto;padding:.5rem 0 1.5rem;
+  color:var(--text);font:400 17px/1.6 var(--sans);background:#fff;
+}
+.sangala-home *{box-sizing:border-box}
+.sangala-home img{display:block;max-width:100%}
+.sangala-home a{color:var(--denim);text-underline-offset:3px}
+.sangala-home a:focus-visible{outline:2px solid var(--grass);outline-offset:3px;border-radius:2px}
+
+/* Title block - formerly the page header, now ordinary content at the top of the body. */
+.sangala-home .intro{padding-bottom:1.1rem;border-bottom:1px solid var(--rule);margin:0 0 1.7rem}
+.sangala-home .eyebrow{font:600 11px/1.4 var(--sans);letter-spacing:.17em;text-transform:uppercase;
+  color:var(--kraft);margin:0 0 .5rem}
+.sangala-home h1{font:400 clamp(1.9rem,4vw,3rem)/1.05 var(--display);letter-spacing:-.018em;
+  color:var(--ink);margin:0}
+.sangala-home .sub{font:italic 400 clamp(1rem,1.4vw,1.2rem)/1.45 var(--display);
+  color:var(--muted);margin:.5rem 0 0}
+
+/* Mission line */
+.sangala-home .joy{font:400 clamp(1.1rem,1.6vw,1.45rem)/1.5 var(--display);color:var(--text);
+  text-align:center;max-width:46em;margin:0 auto 1.5rem}
+.sangala-home .joy b{font-weight:400;font-style:italic;color:var(--grass)}
+
+/* The three buttons - formerly page chrome, now a call-to-action row in the body. */
+.sangala-home .cta{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:0 0 2.3rem}
+.sangala-home .btn{display:inline-block;font:600 13px/1 var(--sans);text-decoration:none;
+  padding:.72rem 1.05rem;border-radius:2px;border:1px solid var(--grass);
+  background:var(--grass);color:#fff;
+  transition:background .15s ease,border-color .15s ease,color .15s ease}
+.sangala-home .btn:hover{background:#3f6a2d;color:#fff}
+.sangala-home .btn.ghost{background:transparent;color:var(--denim);border-color:var(--rule)}
+.sangala-home .btn.ghost:hover{border-color:var(--grass);color:var(--grass)}
+
+/* The four vignettes - auto-fit so they reflow to 2 or 1 column in narrower spaces. */
+.sangala-home .vignettes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1.3rem;margin:0 0 2.1rem}
+.sangala-home .v{margin:0}
+.sangala-home .v img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;
+  border:1px solid var(--rule)}
+.sangala-home .v h2{font:600 12px/1.3 var(--sans);letter-spacing:.13em;text-transform:uppercase;
+  color:var(--denim);margin:.65rem 0 .3rem}
+.sangala-home .v p{font:400 .95rem/1.55 var(--sans);margin:0;color:var(--text)}
+
+.sangala-home .partners{padding-top:1.1rem;border-top:1px solid var(--rule);
+  font:400 14px/1.5 var(--sans);color:var(--text);text-align:center;margin:0}
+</style>
+
+<div class="sangala-home">
+
+  <div class="intro">
+    <p class="eyebrow">A National Technology Leadership Society (NTLS) Initiative</p>
+    <h1>The Sangala Initiative</h1>
+    <p class="sub">Developing technological solutions appropriate for the needs of local communities</p>
+  </div>
+
+  <p class="joy"><span>The word <b>sangala</b> means joy in the Lugisu language spoken in east Africa. We aspire for students to find joy in learning through innovations that improve their communities.</span></p>
+
+  <div class="cta">
+    <a class="btn" href="/sangala/">About the Initiative</a>
+    <a class="btn ghost" href="https://www.cadlibrary.org/objects/V3LXPYQH">Sangala Studio</a>
+    <a class="btn ghost" href="https://www.cadlibrary.org/">CAD Model Library</a>
+  </div>
+
+  <div class="vignettes">
+    <article class="v">
+      <img src="/wp-content/uploads/sangala/scientific-instruments.jpg" alt="Three secondary school students examining a three-dimensional printed microscope on a workbench.">
+      <h2>Scientific Instruments</h2>
+      <p>A 3D-printed microscope that can be fabricated in a makerspace for roughly one-tenth the cost of a commercial model. Students design and build instruments their own communities can use.</p>
+    </article>
+
+    <article class="v">
+      <img src="/wp-content/uploads/sangala/design-software.jpg" alt="The Sangala Studio design program, showing a crested crane placed on a page with cut and fold controls.">
+      <h2>Design Software</h2>
+      <p>Sangala Studio, an open educational CAD program, teaches two-dimensional and three-dimensional design. It installs from a USB drive and runs without Internet access.</p>
+    </article>
+
+    <article class="v">
+      <img src="/wp-content/uploads/sangala/digital-fabrication.jpg" alt="Two students holding a cut-paper collage of a hunter and an antelope at sunrise, with other collages on the wall behind them.">
+      <h2>Digital Fabrication</h2>
+      <p>Students move from two-dimensional art to three-dimensional design and on to working mechanisms, cut in cardstock and printed in plastic.</p>
+    </article>
+
+    <article class="v">
+      <img src="/wp-content/uploads/sangala/environmental-monitoring.jpg" alt="A prototype solar-powered weather station with rechargeable cells and a long-range radio antenna.">
+      <h2>Environmental Monitoring</h2>
+      <p>Solar-powered weather stations, built locally and linked by a long-range radio network, will carry forecasts to an agrarian economy that has none.</p>
+    </article>
+  </div>
+
+  <p class="partners">ITEEA &middot; University of Virginia &middot; FabLab Winam, Kenya &middot; REACH for Uganda</p>
+
+</div>

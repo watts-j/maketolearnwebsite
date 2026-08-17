@@ -39,7 +39,10 @@ the new behavior is dormant until Part 3.
 ## Part 3 — Flip the switch in wp-admin
 
 1. **Create the homepage**: Pages → Add New. Title it (e.g. "Home"), build the content you want,
-   click **Publish**. (If a suitable page already exists, use that one.)
+   click **Publish**. (If a suitable page already exists, use that one.) A ready-made landing
+   page — the Sangala Initiative content — lives at
+   [`site-content/sangala-home/`](../site-content/sangala-home/README.md) with its own paste
+   instructions.
 2. *Optional:* create an empty page called "News" (or "Blog") if you want the blog posts to keep
    a listing page of their own.
 3. **Settings → Reading** → "Your homepage displays" → select **A static page** → Homepage:
